@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="jp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/ress.css" type="text/css">
+    <link rel="stylesheet" href="css/common.css" type="text/css">
+    <script type="text/javascript"></script>
+    <title>画像・テンプレート選択</title>
+</head>
+
+<body>
+    <h1>画像・テンプレート<br>を選ぼう</h1>
+
+    <script>
+        function imgPreView(event, targetId) {
+            var file = event.target.files[0];
+            var reader = new FileReader();
+            var preview = document.getElementById(targetId);
+            var previewImage = document.getElementById("previewImage-" + targetId);
+
+            if (previewImage != null)
+                preview.removeChild(previewImage);
+
+            reader.onload = function (event) {
+                var img = document.createElement("img");
+                img.setAttribute("src", reader.result);
+                img.setAttribute("id", "previewImage-" + targetId);
+                preview.appendChild(img);
+            };
+
+            reader.readAsDataURL(file);
+        }
+    </script>
+    
+    <!--選択したカードの表示-->
+    <div class="button">
+        <input type="file" onChange="imgPreView(event, 'preview1')">
+        <div id="preview1"></div>
+    </div>
+    
+
+    <div class="button">
+        <a href="index4.html" class="btn-square">カメラロールから選ぶ</a><br>
+        <!--カメラロールへのアクセス-->
+        <a href="index4.html" class="btn-square">テンプレートから選ぶ</a>
+    </div>
+
+</body>
+
+</html>

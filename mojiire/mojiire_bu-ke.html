@@ -1,0 +1,92 @@
+<div>
+    <input id="text-box" type="text" placeholder="画像に重ねる文字を入力...">
+</div>
+<div>
+    <!--<input type="file" onChange="drawText(files, 'cv')"></input>-->
+    <canvas id="cv" width="1200" height="675" style="width: 600px"></canvas>
+</div>
+<div>
+    <span id="btn" onclick="share()">SHARE</span>
+</div>
+<script>
+
+	
+	// テキストボックス
+const textBox = document.getElementById("text-box")
+
+
+
+// 背景画像
+const bgImg = new Image()
+bgImg.src = "bu-ke.jpg"
+
+// Canvas準備
+const canvas = document.getElementById("cv")
+const context = canvas.getContext("2d")
+
+// 背景画像読込後にCanvasに描画
+bgImg.onload = () => {
+    context.drawImage(bgImg, 0, 0)
+}
+
+// 文字入力時に描画処理を呼び出す
+textBox.addEventListener("input", () => {
+    drawText(textBox.value)
+})
+
+// 描画処理
+function drawText(text) {
+    context.clearRect(0, 0, canvas.width, canvas.height)    // クリア
+    context.drawImage(bgImg, 0, 0)                          // 背景画像描画
+    context.fillStyle = 'white'                             // テキストカラーを指定
+    context.font = "60px 'Kosugi Maru'"                     // フォントを指定
+    context.textAlign = "center"                            // 左右中央
+    context.textBaseline = "middle"                         // 上下中央
+    context.fillText(text, 550, 250, 900);                  // テキスト描画
+}
+
+//未着手ナウ
+
+ // canvasを画像で保存
+ $("#download").click(function(){
+      canvas = document.getElementById('canvas');
+      var base64 = canvas.toDataURL("image/jpeg");
+      document.getElementById("download").href = base64;
+    });
+ 
+    function setBgColor(){
+      // canvasの背景色を設定(指定がない場合にjpeg保存すると背景が黒になる)
+      ctx.fillStyle = bgColor;
+      ctx.fillRect(0,0,cnvWidth,cnvHeight);
+    }
+
+</script>
+<style>
+	#text-box {
+    width: 600px;
+    padding: 10px 10px; 
+    font-size: 16px;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+div {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+#btn {
+    box-sizing: border-box;
+    padding: 10px 20px;
+    background: royalblue;
+    color: white;
+    cursor: pointer; 
+    transition: 100ms
+}
+
+#btn:active {
+    color: royalblue;
+    background: white;
+    border: solid 1px royalblue;
+}
+</style>
